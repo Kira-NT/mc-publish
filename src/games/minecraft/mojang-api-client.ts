@@ -3,6 +3,8 @@ import { VersionRange, parseVersion } from "@/utils/versioning";
 import { $i } from "@/utils/collections";
 import { MinecraftVersion, MinecraftVersionManifest, getMinecraftVersionManifestEntries } from "./minecraft-version";
 import { getMinecraftVersionRegExp, normalizeMinecraftVersion, normalizeMinecraftVersionRange } from "./minecraft-version-lookup";
+import { retry } from "@/utils/async-utils";
+import { getDefaultLogger } from "@/utils/logging";
 
 /**
  * The default base URL for the Mojang API.
@@ -101,8 +103,7 @@ export class MojangApiClient {
             return this._versions;
         }
 
-        const response = await this._fetch("/game/version_manifest_v2.json");
-        const manifest = await response.json<MinecraftVersionManifest>();
+        const manifest = await this.fetchVersionManifest();
         const manifestEntries = getMinecraftVersionManifestEntries(manifest);
 
         const versions = manifestEntries.map((entry, i, self) => {
@@ -113,6 +114,29 @@ export class MojangApiClient {
 
         this._versions = new Map(versions.map(x => [x.id, x]));
         return this._versions;
+    }
+
+    /**
+     * Fetches the Minecraft version manifest with retry logic.
+     *
+     * @returns A promise that resolves to the MinecraftVersionManifest.
+     */
+    private async fetchVersionManifest(): Promise<MinecraftVersionManifest> {
+        const logger = getDefaultLogger();
+        return await retry(
+            async () => {
+                const response = await this._fetch("/game/version_manifest_v2.json");
+                return await response.json<MinecraftVersionManifest>();
+            },
+            {
+                maxAttempts: 3,
+                delay: 1000,
+                onError: (error) => {
+                    logger.warn(`Failed to fetch Minecraft version manifest. Retrying... Error: ${error.message}`);
+                    return true;
+                },
+            }
+        );
     }
 
     /**
