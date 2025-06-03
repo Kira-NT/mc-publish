@@ -96,5 +96,8 @@ export function formatCurseForgeGameVersion(gameVersion: GameVersion): string {
  * @returns A formatted string representing the game version.
  */
 export function formatCurseForgeGameVersionSnapshot(gameVersion: GameVersion): string {
+    if (gameVersion.isBeta) {
+        return `Beta ${gameVersion.id.substring(1)}`;
+    }
     return `${gameVersion.version.major}.${gameVersion.version.minor}${gameVersion.version.patch ? `.${gameVersion.version.patch}` : ""}${gameVersion.isSnapshot ? "-Snapshot" : ""}`;
 }

@@ -230,4 +230,23 @@ describe("formatCurseForgeGameVersionSnapshot", () => {
 
         expect(result).toEqual(expected);
     });
+
+    test("formats the game version correctly when the input is a beta version", () => {
+        const gameVersion = {
+            id: "b1.7.3",
+            version: {
+                major: 1,
+                minor: 0,
+                patch: 0,
+            },
+            isBeta: true,
+            isSnapshot: true,
+        } as GameVersion;
+
+        const expected = "Beta 1.7.3";
+
+        const result = formatCurseForgeGameVersionSnapshot(gameVersion);
+
+        expect(result).toEqual(expected);
+    });
 });
