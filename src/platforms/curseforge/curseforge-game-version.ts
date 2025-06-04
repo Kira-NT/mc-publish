@@ -64,7 +64,7 @@ export function findCurseForgeGameVersionIdsByNames(versions: CurseForgeGameVers
 
     return $i(names)
         .map(name => {
-            const version = versions.find(v => comparer(v.name, name));
+            const version = versions.find(v => comparer(v.name, name) || comparer(v.slug, name));
             if (version || !fallbackComparer) {
                 return version;
             }

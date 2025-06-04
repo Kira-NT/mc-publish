@@ -103,10 +103,11 @@ describe("CURSEFORGE_GAME_VERSION_PLUGIN_NAME_COMPARER", () => {
 
 describe("findCurseForgeGameVersionIdsByNames", () => {
     const versions = Object.freeze([
-        { id: 1, name: "1.17" },
-        { id: 2, name: "1.17.1" },
-        { id: 3, name: "1.18-Snapshot" },
-        { id: 4, name: "CB 1.4.6-R0.1" },
+        { id: 1, slug: "1-17", name: "1.17" },
+        { id: 2, slug: "1-17-1", name: "1.17.1" },
+        { id: 3, slug: "1-18-Snapshot", name: "1.18-Snapshot" },
+        { id: 4, slug: "CB-1-4-6-R0-1", name: "CB 1.4.6-R0.1" },
+        { id: 5, slug: "risugamis-modloader", name: "Risugami's Modloader" },
     ]) as unknown[] as CurseForgeGameVersion[];
 
     test("returns the correct IDs when using the default comparer", () => {
@@ -139,6 +140,15 @@ describe("findCurseForgeGameVersionIdsByNames", () => {
     test("returns an empty array when no names match", () => {
         const names = ["1.0", "2.0"];
         const ids = [];
+
+        const result = findCurseForgeGameVersionIdsByNames(versions, names);
+
+        expect(result).toEqual(ids);
+    });
+
+    test("returns also based on slug", () => {
+        const names = ["risugamis-modloader"];
+        const ids = [5];
 
         const result = findCurseForgeGameVersionIdsByNames(versions, names);
 
