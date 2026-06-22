@@ -83,6 +83,11 @@ export interface McPublishInput {
         loaders?: string[];
 
         /**
+         * An array of supported Minecraft environments.
+         */
+        environments?: string[];
+
+        /**
          * An array of supported Minecraft versions.
          */
         gameVersions?: string[];
@@ -161,6 +166,11 @@ export interface McPublishInput {
          * An array of supported mod loaders.
          */
         loaders?: string[];
+
+        /**
+         * An array of supported Minecraft environments.
+         */
+        environments?: string[];
 
         /**
          * An array of supported Minecraft versions.
@@ -268,6 +278,11 @@ export interface McPublishInput {
         loaders?: string[];
 
         /**
+         * An array of supported Minecraft environments.
+         */
+        environments?: string[];
+
+        /**
          * An array of supported Minecraft versions.
          */
         gameVersions?: string[];
@@ -332,6 +347,11 @@ export interface McPublishInput {
      * An array of supported mod loaders.
      */
     loaders?: string[];
+
+    /**
+     * An array of supported Minecraft environments.
+     */
+    environments?: string[];
 
     /**
      * An array of supported Minecraft versions.

@@ -105,6 +105,10 @@ inputs:
     description: An array of supported mod loaders.
     required: false
     default: ${undefined}
+  environments:
+    description: An array of supported Minecraft environments.
+    required: false
+    default: ${undefined}
   game-versions:
     description: An array of supported Minecraft versions.
     required: false
@@ -216,6 +220,18 @@ inputs:
     default: ${undefined}
   github-loaders:
     description: An array of supported mod loaders.
+    required: false
+    default: ${undefined}
+  modrinth-environments:
+    description: An array of supported Minecraft environments.
+    required: false
+    default: ${undefined}
+  curseforge-environments:
+    description: An array of supported Minecraft environments.
+    required: false
+    default: ${undefined}
+  github-environments:
+    description: An array of supported Minecraft environments.
     required: false
     default: ${undefined}
   modrinth-game-versions:

@@ -68,7 +68,7 @@ const CURSEFORGE_UPLOAD_FETCH = createFakeFetch({
             expect(metadata.displayName).toBe("Version v1.0.0");
             expect(metadata.releaseType).toBe(VersionType.ALPHA);
             expect(metadata.parentFileID).toBeUndefined();
-            expect(metadata.gameVersions).toEqual([9008, 7499, 8326]);
+            expect(metadata.gameVersions).toEqual([9008, 7499, 8326, 9638]);
             expect(metadata.relations).toEqual({
                 projects: [{
                     slug: "fabric-api",
@@ -127,6 +127,7 @@ describe("CurseForgeUploader", () => {
                 changelog: "Changelog",
                 files: [FileInfo.of("file.txt")],
                 dependencies: [parseDependency("fabric@0.75.0(required){curseforge:306612}")],
+                environments: ["client"],
                 gameVersions: ["1.18.2"],
                 loaders: ["fabric", "unknown"],
                 java: [JavaVersion.of(17)],

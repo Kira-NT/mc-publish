@@ -82,6 +82,9 @@ jobs:
             fabric
             forge
             quilt
+          environments: |
+            client
+            server
           game-versions: |
             [1.16,1.16.5)
             >=21w37a <1.18.2
@@ -128,6 +131,7 @@ jobs:
 | [changelog](#changelog)                                 | The changelog for this version.                                                                                                                   | A body of the release that triggered the action.                                                | `This release fixes a few more issues in Sodium 0.3 for Minecraft 1.17.1.` |
 | [changelog-file](#changelog-file)                       | A [glob](https://www.digitalocean.com/community/tools/glob) pointing to the changelog file.                                                       | -                                                                                               | `CHANGELOG.md`                                                             |
 | [loaders](#loaders)                                     | An array of supported loaders.                                                                                                                    | A value specified in the metadata file.                                                         | `fabric` <br> `forge` <br> `quilt` <br> `rift`                             |
+| [environments](#environments)                           | An array of supported Minecraft environments.                                                                                                         | A value specified in the metadata file.                                                         | `client` <br> `server`                                      |
 | [game-versions](#game-versions)                         | An array of supported Minecraft versions.                                                                                                         | A value specified in the metadata file.                                                         | `21w37a` <br> `>=1.17` <br> `[1.17,)`                                      |
 | [dependencies](#dependencies)                           | An array of dependencies required by your project.                                                                                                | A value specified in the metadata file.                                                         | `fabric@0.40.0(required)`                                                  |
 | [game-version-filter](#game-version-filter)             | Controls the method used to filter game versions.                                                                                                 | `releases \| min-major \| min-minor`                                                            | `releases` <br> `min` <br> `max` <br> `none`                               |
@@ -437,6 +441,16 @@ loaders: |
   fabric
   forge
   quilt
+```
+
+#### environments
+
+An array of supported Minecraft environments. (TODO/WIP: currently only functional on CurseForge!)
+
+```yaml
+environments: |
+  client
+  server
 ```
 
 #### game-versions

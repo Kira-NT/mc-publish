@@ -80,6 +80,11 @@ export interface CurseForgeVersionInit {
     loaders?: string[];
 
     /**
+     * The environments that this version supports.
+     */
+    environments?: string[];
+
+    /**
      * A list of specific versions of projects that this version depends on.
      */
     dependencies?: CurseForgeDependency[];

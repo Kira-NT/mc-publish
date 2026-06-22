@@ -107,6 +107,9 @@ inputs:
   loaders:
     type: string[]?separator=/\s%2B/
     description: An array of supported mod loaders.
+  environments:
+    type: string[]
+    description: An array of supported Minecraft environments.
   game-versions:
     type: string[]
     description: An array of supported Minecraft versions.

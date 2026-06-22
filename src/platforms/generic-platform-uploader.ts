@@ -81,6 +81,11 @@ export interface GenericPlatformUploadRequest {
     loaders?: string[];
 
     /**
+     * An array of environments that the project is compatible with.
+     */
+    environments?: string[];
+
+    /**
      * An array of game versions that the project is compatible with.
      */
     gameVersions?: string[];

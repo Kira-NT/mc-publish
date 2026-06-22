@@ -123,20 +123,6 @@ inputs:
       build/libs/!(*-@(dev|sources|javadoc)).jar
       build/libs/*-@(dev|sources|javadoc).jar
     required: false
-  files-primary:
-    type: utils.io.FileInfo[]:{findFiles}?processSeparately=false
-    redirect: files
-    description: A glob determining the primary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
-  files-secondary:
-    type: utils.io.FileInfo[]:{findFiles}?processSeparately=false
-    redirect: void
-    description: A glob determining the secondary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
   name:
     type: string
     description: The name of the version.
@@ -168,6 +154,11 @@ inputs:
     description: An array of supported mod loaders.
     required: false
     default: ${undefined}
+  environments:
+    type: string[]
+    description: An array of supported Minecraft environments.
+    required: false
+    default: ${undefined}
   game-versions:
     type: string[]
     description: An array of supported Minecraft versions.
@@ -176,13 +167,6 @@ inputs:
   dependencies:
     type: dependencies.Dependency[]
     description: An array of dependencies required by your project.
-    required: false
-    default: ${undefined}
-  version-resolver:
-    type: games.GameVersionFilter:fromVersionResolver
-    redirect: game-version-filter
-    description: Controls the method used to automatically resolve game versions.
-    deprecationMessage: Please, use 'game-version-filter' instead.
     required: false
     default: ${undefined}
   game-version-filter:
@@ -226,48 +210,6 @@ inputs:
     description: An array of globs determining which files to upload.
     default: ${undefined}
     required: false
-  modrinth-files-primary:
-    type: utils.io.FileInfo[]:{findFiles}?processSeparately=false
-    redirect: modrinth-files
-    description: A glob determining the primary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
-  curseforge-files-primary:
-    type: utils.io.FileInfo[]:{findFiles}?processSeparately=false
-    redirect: curseforge-files
-    description: A glob determining the primary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
-  github-files-primary:
-    type: utils.io.FileInfo[]:{findFiles}?processSeparately=false
-    redirect: github-files
-    description: A glob determining the primary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
-  modrinth-files-secondary:
-    type: utils.io.FileInfo[]:{findFiles}?processSeparately=false
-    redirect: modrinth-void
-    description: A glob determining the secondary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
-  curseforge-files-secondary:
-    type: utils.io.FileInfo[]:{findFiles}?processSeparately=false
-    redirect: curseforge-void
-    description: A glob determining the secondary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
-  github-files-secondary:
-    type: utils.io.FileInfo[]:{findFiles}?processSeparately=false
-    redirect: github-void
-    description: A glob determining the secondary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
   modrinth-name:
     type: string
     description: The name of the version.
@@ -361,6 +303,21 @@ inputs:
     description: An array of supported mod loaders.
     required: false
     default: ${undefined}
+  modrinth-environments:
+    type: string[]
+    description: An array of supported Minecraft environments.
+    required: false
+    default: ${undefined}
+  curseforge-environments:
+    type: string[]
+    description: An array of supported Minecraft environments.
+    required: false
+    default: ${undefined}
+  github-environments:
+    type: string[]
+    description: An array of supported Minecraft environments.
+    required: false
+    default: ${undefined}
   modrinth-game-versions:
     type: string[]
     description: An array of supported Minecraft versions.
@@ -389,27 +346,6 @@ inputs:
   github-dependencies:
     type: dependencies.Dependency[]
     description: An array of dependencies required by your project.
-    required: false
-    default: ${undefined}
-  modrinth-version-resolver:
-    type: games.GameVersionFilter:fromVersionResolver
-    redirect: modrinth-game-version-filter
-    description: Controls the method used to automatically resolve game versions.
-    deprecationMessage: Please, use 'game-version-filter' instead.
-    required: false
-    default: ${undefined}
-  curseforge-version-resolver:
-    type: games.GameVersionFilter:fromVersionResolver
-    redirect: curseforge-game-version-filter
-    description: Controls the method used to automatically resolve game versions.
-    deprecationMessage: Please, use 'game-version-filter' instead.
-    required: false
-    default: ${undefined}
-  github-version-resolver:
-    type: games.GameVersionFilter:fromVersionResolver
-    redirect: github-game-version-filter
-    description: Controls the method used to automatically resolve game versions.
-    deprecationMessage: Please, use 'game-version-filter' instead.
     required: false
     default: ${undefined}
   modrinth-game-version-filter:
@@ -535,5 +471,5 @@ outputs:
       for the new version on GitHub, such as file `name`, `id`, and download
       `url`.
 runs:
-  using: node16
+  using: node20
   main: dist/index.js

@@ -187,11 +187,13 @@ export class CurseForgeUploadApiClient {
     private async getGameVersionIdVariants(gameVersionUnion: CurseForgeGameVersionUnion): Promise<number[][]> {
         const loaders = gameVersionUnion.loaders || [];
         const javaVersions = gameVersionUnion.java_versions || [];
+        const environments = gameVersionUnion.environments || [];
         const gameVersions = gameVersionUnion.game_versions?.length ? await this._gameVersionProvider(gameVersionUnion.game_versions) : [];
 
         const map = await this.getGameVersionMap();
 
         const javaVersionNames = javaVersions.map(x => JavaVersion.of(x).name);
+        const environmentNames = environments.map(x => x.toLowerCase());
         const gameVersionNames = gameVersions.map(x => formatCurseForgeGameVersionSnapshot(x));
         const pluginGameVersionNames = gameVersions.map(x => formatCurseForgeGameVersion(x));
 
@@ -199,6 +201,7 @@ export class CurseForgeUploadApiClient {
         const gameVersionIds = findCurseForgeGameVersionIdsByNames(map.game_versions, gameVersionNames, undefined, CURSEFORGE_GAME_VERSION_SNAPSHOT_NAME_COMPARER);
         const loaderIds = findCurseForgeGameVersionIdsByNames(map.loaders, loaders);
         const javaIds = findCurseForgeGameVersionIdsByNames(map.java_versions, javaVersionNames);
+        const environmentIds = findCurseForgeGameVersionIdsByNames(map.environments, environmentNames);
 
         // gameVersions for plugins
         const pluginGameVersionIds = findCurseForgeGameVersionIdsByNames(map.game_versions_for_plugins, pluginGameVersionNames, undefined, CURSEFORGE_GAME_VERSION_PLUGIN_NAME_COMPARER);
@@ -210,7 +213,7 @@ export class CurseForgeUploadApiClient {
             // These ids are used by: `Mods`.
             //
             // This is the most common project type out there, so we try these ids first.
-            loaderIds.length ? gameVersionIds.concat(loaderIds, javaIds) : gameVersionIds,
+            loaderIds.length ? gameVersionIds.concat(loaderIds, javaIds, environmentIds) : gameVersionIds,
 
             // These ids are used by: `Bukkit Plugins`.
             //

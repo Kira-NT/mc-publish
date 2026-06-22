@@ -123,6 +123,7 @@ export class CurseForgeUploader extends GenericPlatformUploader<CurseForgeUpload
             changelog: request.changelog,
             game_versions: request.gameVersions,
             java_versions: request.java,
+            environments: request.environments,
             loaders: request.loaders,
             files: request.files,
             dependencies,

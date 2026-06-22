@@ -15,6 +15,11 @@ export interface CurseForgeGameVersionUnion {
     java_versions?: (string | JavaVersion)[];
 
     /**
+     * An array of supported environments for this project version.
+     */
+    environments?: string[];
+
+    /**
      * The mod loaders that this version supports.
      */
     loaders?: string[];
