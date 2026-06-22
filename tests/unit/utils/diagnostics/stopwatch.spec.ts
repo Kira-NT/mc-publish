@@ -62,7 +62,7 @@ describe("Stopwatch", () => {
             const stopwatch = new Stopwatch(undefined, onStop);
 
             expect(stopwatch.stop()).toBe(false);
-            expect(onStop).not.toBeCalled();
+            expect(onStop).not.toHaveBeenCalled();
         });
     });
 

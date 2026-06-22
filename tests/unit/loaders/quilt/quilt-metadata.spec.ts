@@ -65,7 +65,7 @@ describe("QuiltMetadata", () => {
     });
 
     describe("gameVersions", () => {
-        test("returns an empty array if no dependencies were specified", () => {
+        test("returns an empty array if no game versions were specified", () => {
             const metadata = QuiltMetadata.from({} as RawQuiltMetadata);
 
             expect(metadata.gameVersions).toEqual([]);

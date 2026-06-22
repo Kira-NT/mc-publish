@@ -1,5 +1,3 @@
-# TODO: Remove deprecated inputs in v4.0
-
 name: mc-publish
 description: Your one-stop GitHub Action for seamless Minecraft project publication across various platforms.
 author: Kir-Antipov
@@ -87,16 +85,6 @@ inputs:
     default: |
       build/libs/!(*-@(dev|sources|javadoc)).jar
       build/libs/*-@(dev|sources|javadoc).jar
-  files-primary:
-    type: utils.io.FileInfo[]:{findFiles}?processSeparately=false
-    redirect: files
-    description: A glob determining the primary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-  files-secondary:
-    type: utils.io.FileInfo[]:{findFiles}?processSeparately=false
-    redirect: void
-    description: A glob determining the secondary files to upload.
-    deprecationMessage: Please, use 'files' instead.
 
   name:
     type: string
@@ -125,11 +113,6 @@ inputs:
   dependencies:
     type: dependencies.Dependency[]
     description: An array of dependencies required by your project.
-  version-resolver:
-    type: games.GameVersionFilter:fromVersionResolver
-    redirect: game-version-filter
-    description: Controls the method used to automatically resolve game versions.
-    deprecationMessage: Please, use 'game-version-filter' instead.
   game-version-filter:
     type: games.GameVersionFilter
     description: Controls the method used to filter game versions.
@@ -192,5 +175,5 @@ outputs:
     description: Array of objects, each containing details about the files published for the new version on GitHub, such as file `name`, `id`, and download `url`.
 
 runs:
-  using: node16
+  using: node20
   main: dist/index.js

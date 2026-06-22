@@ -110,9 +110,9 @@ export interface ActionMetadata {
          *
          * @remarks
          *
-         * Due to the deprecation of Node12, the available options are quite limited now.
+         * Due to the deprecation of Node12 and Node16, the available options are quite limited now.
          */
-        using: "node16";
+        using: "node20";
 
         /**
          * The file that contains your action code.
@@ -353,7 +353,7 @@ function groupActionParameters<T extends ActionParameter>(parameters: Record<str
     const processedValues = { ...parameters };
     const namedGroups = Object.entries(groups);
     const groupedValues = $i(Object.entries(parameters)).flatMap(
-        ([vName, v]) => $i(namedGroups).map(([gName, g]) => [gName, g, vName, v] as [string, ActionGroup, string, T])
+        ([vName, v]) => $i(namedGroups).map(([gName, g]) => [gName, g, vName, v] as [string, ActionGroup, string, T]),
     );
 
     for (const [groupName, group, valueName, value] of groupedValues) {
@@ -665,7 +665,7 @@ export function createModuleLoaderTypeScriptDefinitionForActionMetadata(metadata
     const indent = getIndentation(incrementIndent(options));
     const formattedConditions = conditions.map(x => `${indent}${x}`).join(newline);
     const moduleLoaderBody = TypeScriptTypeLiteral.create(
-        `(path: string): Promise<Record<string, unknown>> => {${newline}${formattedConditions}${newline}};`
+        `(path: string): Promise<Record<string, unknown>> => {${newline}${formattedConditions}${newline}};`,
     );
 
     const moduleLoaderName = options?.moduleLoaderName || DEFAULT_MODULE_LOADER_NAME;

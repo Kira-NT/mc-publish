@@ -27,19 +27,19 @@ describe("ArgumentError", () => {
 
     describe("throwIfNullOrEmpty", () => {
         test("throws an ArgumentError with a specified parameter name if the argument is null", () => {
-            expect(() => ArgumentError.throwIfNullOrEmpty(null, "param1")).toThrowError(new ArgumentError("param1", "The value cannot be null, undefined, or empty."));
+            expect(() => ArgumentError.throwIfNullOrEmpty(null, "param1")).toThrow(new ArgumentError("param1", "The value cannot be null, undefined, or empty."));
         });
 
         test("throws an ArgumentError with a specified parameter name if the argument is undefined", () => {
-            expect(() => ArgumentError.throwIfNullOrEmpty(undefined, "param1")).toThrowError(new ArgumentError("param1", "The value cannot be null, undefined, or empty."));
+            expect(() => ArgumentError.throwIfNullOrEmpty(undefined, "param1")).toThrow(new ArgumentError("param1", "The value cannot be null, undefined, or empty."));
         });
 
         test("throws an ArgumentError with a specified parameter name if the argument is empty", () => {
-            expect(() => ArgumentError.throwIfNullOrEmpty("", "param1")).toThrowError(new ArgumentError("param1", "The value cannot be null, undefined, or empty."));
+            expect(() => ArgumentError.throwIfNullOrEmpty("", "param1")).toThrow(new ArgumentError("param1", "The value cannot be null, undefined, or empty."));
         });
 
         test("throws an ArgumentError with the provided error message", () => {
-            expect(() => ArgumentError.throwIfNullOrEmpty(null, "param1", "I don't like nulls.")).toThrowError(new ArgumentError("param1", "I don't like nulls."));
+            expect(() => ArgumentError.throwIfNullOrEmpty(null, "param1", "I don't like nulls.")).toThrow(new ArgumentError("param1", "I don't like nulls."));
         });
 
         test("does not throw if the argument is not null, undefined, or empty", () => {

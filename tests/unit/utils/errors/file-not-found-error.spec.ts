@@ -36,7 +36,7 @@ describe("FileNotFoundError", () => {
         });
 
         test("throws a FileNotFoundError with the provided error message", () => {
-            expect(() => FileNotFoundError.throwIfNotFound("test.txt", "I don't like file extensions.")).toThrowError(new FileNotFoundError("test.txt", "I don't like file extensions."));
+            expect(() => FileNotFoundError.throwIfNotFound("test.txt", "I don't like file extensions.")).toThrow(new FileNotFoundError("test.txt", "I don't like file extensions."));
         });
 
         test("does not throw error if file exists", () => {

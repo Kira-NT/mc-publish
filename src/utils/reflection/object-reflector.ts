@@ -69,7 +69,7 @@ export function* getAllPropertyDescriptors(obj: unknown): Iterable<[string | sym
     while (obj !== undefined && obj !== null) {
         const keys = Array.prototype.concat(
             Object.getOwnPropertyNames(obj),
-            Object.getOwnPropertySymbols(obj)
+            Object.getOwnPropertySymbols(obj),
         );
         const descriptors = Object.getOwnPropertyDescriptors(obj);
 

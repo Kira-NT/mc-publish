@@ -1,17 +1,18 @@
 {
-    "include": ["./src/**/*"],
+    "include": ["./src/**/*", "./scripts/**/*"],
     "exclude": ["node_modules", "./test/**/*"],
+    "isolatedModules": true,
     "compilerOptions": {
         "target": "ESNext",
         "module": "ESNext",
-        "moduleResolution": "node",
+        "moduleResolution": "node10",
         "esModuleInterop": true,
 
-        "baseUrl": "./src",
+        "rootDir": "./",
         "outDir": "./dist",
 
         "paths": {
-            "@/*": ["./*"],
+            "@/*": ["./src/*"],
         }
     },
 }

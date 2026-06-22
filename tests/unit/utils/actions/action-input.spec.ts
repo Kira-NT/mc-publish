@@ -179,7 +179,7 @@ describe("getActionInput", () => {
     test("throws an error if the required option is true and the environment variable is not set", () => {
         const env = {};
 
-        expect(() => getActionInput("name", { required: true }, env)).toThrowError();
+        expect(() => getActionInput("name", { required: true }, env)).toThrow();
     });
 });
 
@@ -233,7 +233,7 @@ describe("getActionInputs", () => {
         const env = { INPUT_NAME1: "value1" };
         const names = ["name1", "name2"];
 
-        expect(() => getActionInputs(names, { required: true }, env)).toThrowError();
+        expect(() => getActionInputs(names, { required: true }, env)).toThrow();
     });
 });
 
@@ -273,7 +273,7 @@ describe("getAllActionInputs", () => {
     test("throws an error if the required option is true and one of the inputs is SYNTHETIC_UNDEFINED", () => {
         const env = { INPUT_NAME1: "value1", INPUT_NAME2: SYNTHETIC_UNDEFINED };
 
-        expect(() => getAllActionInputs({ required: true }, env)).toThrowError();
+        expect(() => getAllActionInputs({ required: true }, env)).toThrow();
     });
 });
 
@@ -403,7 +403,7 @@ describe("getAllActionInputsAsObject", () => {
             { name: "name2", path: ["foo", "name2"], type: parseActionParameterTypeDescriptor("number"), required: false, description: "" },
         ];
 
-        await expect(getAllActionInputsAsObject(descriptors, { required: true }, env)).rejects.toThrowError();
+        await expect(getAllActionInputsAsObject(descriptors, { required: true }, env)).rejects.toThrow();
     });
 });
 
@@ -411,7 +411,7 @@ describe("getAllActionInputsAsObjectUsingMetadata", () => {
     const METADATA = Object.freeze({
         name: "test-metadata",
         description: "Test description",
-        runs: { main: "index.js", using: "node16" },
+        runs: { main: "index.js", using: "node20" },
 
         inputs: {
             name1: {
@@ -539,6 +539,6 @@ describe("getAllActionInputsAsObjectUsingMetadata", () => {
     test("throws an error if the required option is true and one of the inputs is SYNTHETIC_UNDEFINED", async () => {
         const env = { INPUT_NAME1: "value1", INPUT_NAME2: "2", INPUT_NAME4: SYNTHETIC_UNDEFINED };
 
-        await expect(getAllActionInputsAsObjectUsingMetadata(METADATA, { required: true }, env)).rejects.toThrowError();
+        await expect(getAllActionInputsAsObjectUsingMetadata(METADATA, { required: true }, env)).rejects.toThrow();
     });
 });

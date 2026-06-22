@@ -16,14 +16,14 @@ export const IGNORE_CASE_EQUALITY_COMPARER = IGNORE_CASE_COMPARER.asEqualityComp
  * An equality comparer that compares two strings ignoring non-word characters (e.g. spaces, punctuation).
  */
 export const IGNORE_NON_WORD_CHARACTERS_EQUALITY_COMPARER = createEqualityComparer<string>(
-    (x, y) => compareStringsIgnoreNonWordCharacters(x, y, false)
+    (x, y) => compareStringsIgnoreNonWordCharacters(x, y, false),
 );
 
 /**
  * Creates an equality comparer that compares two strings ignoring non-word characters (e.g. spaces, punctuation) and case sensitivity.
  */
 export const IGNORE_CASE_AND_NON_WORD_CHARACTERS_EQUALITY_COMPARER = createEqualityComparer<string>(
-    (x, y) => compareStringsIgnoreNonWordCharacters(x, y, true)
+    (x, y) => compareStringsIgnoreNonWordCharacters(x, y, true),
 );
 
 /**

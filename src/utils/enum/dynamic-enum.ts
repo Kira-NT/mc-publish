@@ -247,21 +247,21 @@ export class DynamicEnum<T> implements ReadonlyMap<EnumKey<T>, EnumValue<T>> {
     /**
      * Returns an iterator that yields the keys of the enum.
      */
-    keys(): IterableIterator<EnumKey<T>> {
+    keys(): MapIterator<EnumKey<T>> {
         return this._keys[Symbol.iterator]();
     }
 
     /**
      * Returns an iterator that yields the values of the enum.
      */
-    values(): IterableIterator<EnumValue<T>> {
+    values(): MapIterator<EnumValue<T>> {
         return this._values[Symbol.iterator]();
     }
 
     /**
      * Returns an iterator that yields the key/value pairs for every entry in the enum.
      */
-    *entries(): IterableIterator<EnumEntry<T>> {
+    *entries(): MapIterator<EnumEntry<T>> {
         const keys = this._keys;
         const values = this._values;
         for (let i = 0; i < keys.length; ++i) {
@@ -272,7 +272,7 @@ export class DynamicEnum<T> implements ReadonlyMap<EnumKey<T>, EnumValue<T>> {
     /**
      * Returns an iterator that yields the key/value pairs for every entry in the enum.
      */
-    [Symbol.iterator](): IterableIterator<EnumEntry<T>> {
+    [Symbol.iterator](): MapIterator<[EnumKey<T>, EnumValue<T>]> {
         return this.entries();
     }
 
@@ -282,13 +282,13 @@ export class DynamicEnum<T> implements ReadonlyMap<EnumKey<T>, EnumValue<T>> {
      * @param callbackFn - The function to call for each element in the enum.
      * @param thisArg - The value to use as `this` when calling `callbackFn`.
      */
-    forEach(callbackFn: (value: EnumValue<T>, key: EnumKey<T>, e: ConstructedEnum<T>) => void, thisArg?: unknown): void {
+    forEach(callbackFn: (value: EnumValue<T>, key: EnumKey<T>, map: ReadonlyMap<EnumKey<T>, EnumValue<T>>) => void, thisArg?: unknown): void {
         callbackFn = thisArg === undefined ? callbackFn : callbackFn.bind(thisArg);
 
         const keys = this._keys;
         const values = this._values;
         for (let i = 0; i < keys.length; ++i) {
-            callbackFn(values[i], keys[i], this as unknown as ConstructedEnum<T>);
+            callbackFn(values[i], keys[i], this as unknown as ReadonlyMap<EnumKey<T>, EnumValue<T>>);
         }
     }
 

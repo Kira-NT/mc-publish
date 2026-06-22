@@ -225,21 +225,21 @@ export class ArrayMap<K, V> implements Map<K, V> {
     /**
      * Returns an iterator over the keys in the map.
      */
-    keys(): IterableIterator<K> {
+    keys(): MapIterator<K> {
         return this._keys[Symbol.iterator]();
     }
 
     /**
      * Returns an iterator over the values in the map.
      */
-    values(): IterableIterator<V> {
+    values(): MapIterator<V> {
         return this._values[Symbol.iterator]();
     }
 
     /**
      * Returns an iterator over the entries in the map.
      */
-    *entries(): IterableIterator<[K, V]> {
+    *entries(): MapIterator<[K, V]> {
         const keys = this._keys;
         const values = this._values;
 
@@ -254,20 +254,20 @@ export class ArrayMap<K, V> implements Map<K, V> {
      * @param callbackFn - This function is called one time for each element in the map. It takes the value, key, and the map itself as arguments.
      * @param thisArg - An optional object to which `this` keyword can refer in the `callbackFn` function.
      */
-    forEach(callbackFn: (value: V, key: K, map: ArrayMap<K, V>) => void, thisArg?: unknown): void {
+    forEach(callbackFn: (value: V, key: K, map: Map<K, V>) => void, thisArg?: unknown): void {
         callbackFn = thisArg === undefined ? callbackFn : callbackFn.bind(thisArg);
         const keys = this._keys;
         const values = this._values;
 
         for (let i = 0; i < keys.length; ++i) {
-            callbackFn(values[i], keys[i], this);
+            callbackFn(values[i], keys[i], this as unknown as Map<K, V>);
         }
     }
 
     /**
      * Returns an iterator over the entries in the map.
      */
-    [Symbol.iterator](): IterableIterator<[K, V]> {
+    [Symbol.iterator](): MapIterator<[K, V]> {
         return this.entries();
     }
 

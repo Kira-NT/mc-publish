@@ -1,9 +1,5 @@
 import { Enum, EnumOptions } from "@/utils/enum";
-import { stringEquals } from "@/utils/string-utils";
-import { deprecate } from "node:util";
 import { GameVersion } from "./game-version";
-
-// _ TODO: Remove deprecated stuff in v4.0
 
 /**
  * Represents a game version filter.
@@ -177,61 +173,12 @@ function applyVersionRange<T extends GameVersion>(versions: T[], selector: (x: T
 }
 
 /**
- * Converts a version resolver name to a game version filter.
- *
- * @param versionResolverName - The name of the version resolver.
- *
- * @returns The corresponding game version filter.
- */
-function _fromVersionResolver(versionResolverName: string): GameVersionFilter {
-    if (stringEquals(versionResolverName, "exact", { ignoreCase: true })) {
-        return GameVersionFilterValues.MIN | GameVersionFilterValues.RELEASES;
-    }
-
-    if (stringEquals(versionResolverName, "latest", { ignoreCase: true })) {
-        return (
-            GameVersionFilterValues.MIN_MAJOR |
-            GameVersionFilterValues.MIN_MINOR |
-            GameVersionFilterValues.MAX_PATCH |
-            GameVersionFilterValues.RELEASES
-        );
-    }
-
-    if (stringEquals(versionResolverName, "all", { ignoreCase: true })) {
-        return GameVersionFilterValues.MIN_MAJOR | GameVersionFilterValues.MIN_MINOR;
-    }
-
-    return (
-        GameVersionFilterValues.MIN_MAJOR |
-        GameVersionFilterValues.MIN_MINOR |
-        GameVersionFilterValues.RELEASES
-    );
-}
-
-/**
- * Converts a version resolver name to a game version filter.
- *
- * @param versionResolverName - The name of the version resolver.
- *
- * @returns The corresponding game version filter.
- *
- * @deprecated
- *
- * Use keys of the new {@link GameVersionFilter} instead.
- */
-const fromVersionResolver = deprecate(
-    _fromVersionResolver,
-    "Use the new `game-version-filter` input instead of the deprecated `version-resolver` one."
-);
-
-/**
  * A collection of methods to work with `GameVersionFilter`.
  *
  * @partial
  */
 const GameVersionFilterMethods = {
     filter,
-    fromVersionResolver,
 };
 
 

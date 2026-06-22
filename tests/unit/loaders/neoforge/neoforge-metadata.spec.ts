@@ -74,7 +74,7 @@ describe("NeoForgeMetadata", () => {
     });
 
     describe("gameVersions", () => {
-        test("returns an empty array if no dependencies were specified", () => {
+        test("returns an empty array if no game versions were specified", () => {
             const metadata = NeoForgeMetadata.from({} as RawNeoForgeMetadata);
 
             expect(metadata.gameVersions).toEqual([]);

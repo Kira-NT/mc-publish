@@ -81,16 +81,6 @@ inputs:
       build/libs/!(*-@(dev|sources|javadoc)).jar
       build/libs/*-@(dev|sources|javadoc).jar
     required: false
-  files-primary:
-    description: A glob determining the primary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
-  files-secondary:
-    description: A glob determining the secondary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
   name:
     description: The name of the version.
     required: false
@@ -121,11 +111,6 @@ inputs:
     default: ${undefined}
   dependencies:
     description: An array of dependencies required by your project.
-    required: false
-    default: ${undefined}
-  version-resolver:
-    description: Controls the method used to automatically resolve game versions.
-    deprecationMessage: Please, use 'game-version-filter' instead.
     required: false
     default: ${undefined}
   game-version-filter:
@@ -161,36 +146,6 @@ inputs:
     description: An array of globs determining which files to upload.
     default: ${undefined}
     required: false
-  modrinth-files-primary:
-    description: A glob determining the primary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
-  curseforge-files-primary:
-    description: A glob determining the primary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
-  github-files-primary:
-    description: A glob determining the primary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
-  modrinth-files-secondary:
-    description: A glob determining the secondary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
-  curseforge-files-secondary:
-    description: A glob determining the secondary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
-  github-files-secondary:
-    description: A glob determining the secondary files to upload.
-    deprecationMessage: Please, use 'files' instead.
-    required: false
-    default: ${undefined}
   modrinth-name:
     description: The name of the version.
     required: false
@@ -285,21 +240,6 @@ inputs:
     default: ${undefined}
   github-dependencies:
     description: An array of dependencies required by your project.
-    required: false
-    default: ${undefined}
-  modrinth-version-resolver:
-    description: Controls the method used to automatically resolve game versions.
-    deprecationMessage: Please, use 'game-version-filter' instead.
-    required: false
-    default: ${undefined}
-  curseforge-version-resolver:
-    description: Controls the method used to automatically resolve game versions.
-    deprecationMessage: Please, use 'game-version-filter' instead.
-    required: false
-    default: ${undefined}
-  github-version-resolver:
-    description: Controls the method used to automatically resolve game versions.
-    deprecationMessage: Please, use 'game-version-filter' instead.
     required: false
     default: ${undefined}
   modrinth-game-version-filter:
@@ -398,5 +338,5 @@ outputs:
       for the new version on GitHub, such as file `name`, `id`, and download
       `url`.
 runs:
-  using: node16
+  using: node20
   main: dist/index.js

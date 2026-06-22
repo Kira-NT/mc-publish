@@ -61,7 +61,7 @@ describe("setActionOutput", () => {
     });
 
     test("throws an error if the output file does not exist", () => {
-        expect(() => setActionOutput("output1", "value1", {})).toThrowError();
+        expect(() => setActionOutput("output1", "value1", {})).toThrow();
     });
 });
 
@@ -104,7 +104,7 @@ describe("setActionOutputs", () => {
             ["output2", "value2"] as const,
         ];
 
-        expect(() => setActionOutputs(outputs, {})).toThrowError();
+        expect(() => setActionOutputs(outputs, {})).toThrow();
     });
 });
 
@@ -231,7 +231,7 @@ describe("createActionOutputControllerUsingMetadata", () => {
     const METADATA = Object.freeze({
         name: "test-metadata",
         description: "Test description",
-        runs: { main: "index.js", using: "node16" },
+        runs: { main: "index.js", using: "node20" },
 
         outputs: {
             output1: {

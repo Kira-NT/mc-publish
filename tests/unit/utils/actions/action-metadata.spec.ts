@@ -63,7 +63,7 @@ describe("parseActionMetadataFromFile", () => {
     });
 
     test("throws an error if the file doesn't exist", async () => {
-        await expect(parseActionMetadataFromFile("action.txt")).rejects.toThrowError();
+        await expect(parseActionMetadataFromFile("action.txt")).rejects.toThrow();
     });
 });
 

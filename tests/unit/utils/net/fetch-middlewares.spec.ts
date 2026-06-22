@@ -13,7 +13,7 @@ describe("defaultResponse", () => {
         const response = await middleware("http://example.com/", {}, next);
         const responseText = await response.text();
 
-        expect(next).toBeCalledWith("http://example.com/", {});
+        expect(next).toHaveBeenCalledWith("http://example.com/", {});
         expect(response.status).toBe(404);
         expect(responseText).toBe("Foo");
     });
@@ -28,7 +28,7 @@ describe("defaultResponse", () => {
         const response = await middleware("http://example.com/", {}, next);
         const responseText = await response.text();
 
-        expect(next).toBeCalledWith("http://example.com/", {});
+        expect(next).toHaveBeenCalledWith("http://example.com/", {});
         expect(response.status).toBe(200);
         expect(responseText).toBe("Success");
     });
@@ -40,7 +40,7 @@ describe("defaultResponse", () => {
         const response = await middleware("http://example.com/", {}, next);
         const responseText = await response.text();
 
-        expect(next).toBeCalledWith("http://example.com/", {});
+        expect(next).toHaveBeenCalledWith("http://example.com/", {});
         expect(response.status).toBe(404);
         expect(responseText).toBe("");
     });
@@ -57,7 +57,7 @@ describe("throwOnError", () => {
         const responsePromise = middleware("http://example.com/", {}, next);
 
         await expect(responsePromise).rejects.toThrow("HTTP Error: 404");
-        expect(next).toBeCalledWith("http://example.com/", {});
+        expect(next).toHaveBeenCalledWith("http://example.com/", {});
     });
 
     test("returns original response when filter condition is not met", async () => {
@@ -70,7 +70,7 @@ describe("throwOnError", () => {
         const response = await middleware("http://example.com/", {}, next);
         const responseText = await response.text();
 
-        expect(next).toBeCalledWith("http://example.com/", {});
+        expect(next).toHaveBeenCalledWith("http://example.com/", {});
         expect(response.status).toBe(200);
         expect(responseText).toBe("Success");
     });
@@ -82,7 +82,7 @@ describe("throwOnError", () => {
         const responsePromise = middleware("http://example.com/", {}, next);
 
         await expect(responsePromise).rejects.toThrow(HttpError);
-        expect(next).toBeCalledWith("http://example.com/", {});
+        expect(next).toHaveBeenCalledWith("http://example.com/", {});
     });
 });
 
@@ -101,7 +101,7 @@ describe("simpleCache", () => {
         const response2 = await middleware("http://example.com/?useCache=true", {}, next);
         const responseText2 = await response2.text();
 
-        expect(next).toBeCalledTimes(1);
+        expect(next).toHaveBeenCalledTimes(1);
         expect(response1.status).toBe(200);
         expect(responseText1).toBe("Cached");
         expect(response2.status).toBe(200);
@@ -122,7 +122,7 @@ describe("simpleCache", () => {
         const response2 = await middleware("http://example.com/", {}, next);
         const responseText2 = await response2.text();
 
-        expect(next).toBeCalledTimes(2);
+        expect(next).toHaveBeenCalledTimes(2);
         expect(response1.status).toBe(200);
         expect(responseText1).toBe("Not Cached");
         expect(response2.status).toBe(200);
@@ -140,7 +140,7 @@ describe("simpleCache", () => {
         const response2 = await middleware("http://example.com/?cache=true", {}, next);
         const responseText2 = await response2.text();
 
-        expect(next).toBeCalledTimes(1);
+        expect(next).toHaveBeenCalledTimes(1);
         expect(response1.status).toBe(200);
         expect(responseText1).toBe("Cached");
         expect(response2.status).toBe(200);

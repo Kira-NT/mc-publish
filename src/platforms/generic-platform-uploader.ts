@@ -163,7 +163,7 @@ export abstract class GenericPlatformUploader<TOptions extends GenericPlatformUp
 
         const stopwatch = LoggingStopwatch.startNew(this._logger,
             () => `📤 Uploading assets to ${platformName}`,
-            ms => `✅ Successfully published assets to ${platformName} in ${ms} ms`
+            ms => `✅ Successfully published assets to ${platformName} in ${ms} ms`,
         );
         const onError = (error: Error) => {
             if (isSoftError(error)) {
@@ -176,7 +176,7 @@ export abstract class GenericPlatformUploader<TOptions extends GenericPlatformUp
 
         const report = await retry(
             () => this.uploadCore(request),
-            { maxAttempts, delay, onError }
+            { maxAttempts, delay, onError },
         );
 
         stopwatch.stop();

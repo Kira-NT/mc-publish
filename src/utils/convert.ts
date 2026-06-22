@@ -362,7 +362,7 @@ function getParseLikeFunction(obj: unknown, prefixes: readonly string[]): (obj: 
 
     // Determine the first parse-like method name by sorting them based on prefix precedence and taking the first result.
     const firstParseMethodName = $i(parseMethodNames).min(
-        (a, b) => prefixes.findIndex(p => a.startsWith(p)) - prefixes.findIndex(p => b.startsWith(p))
+        (a, b) => prefixes.findIndex(p => a.startsWith(p)) - prefixes.findIndex(p => b.startsWith(p)),
     );
 
     // If no parse-like method names were found, return undefined.

@@ -219,7 +219,7 @@ function normalizeUrlParams(params?: string | Iterable<[unknown, unknown]> | Rec
     return $i(Array.isArray(params) ? params : getOwnEntries(params))
         .flatMap<[unknown, unknown]>(([key, value]) => Array.isArray(value)
             ? $i(value).map(v => [key, v])
-            : [[key, value]]
+            : [[key, value]],
         )
         .filter(([, value]) => value !== undefined && value !== null);
 }

@@ -3,11 +3,8 @@ import { Dependency, createDependency } from "@/dependencies";
 import { LoaderType } from "@/loaders/loader-type";
 import { PlatformType } from "@/platforms";
 import { PartialRecord } from "@/utils/types";
-import { deprecate } from "node:util";
 import { RawQuiltMetadata } from "./raw-quilt-metadata";
 import { asString } from "@/utils/string-utils";
-
-// _ TODO: Remove the deprecated stuff in v4.0.
 
 /**
  * Custom payload for Quilt metadata.
@@ -33,50 +30,8 @@ export type QuiltMetadataCustomPayload = {
  * @returns The custom payload attached to the given metadata.
  */
 export function getQuiltMetadataCustomPayload(metadata: RawQuiltMetadata): QuiltMetadataCustomPayload {
-    return containsLegacyCustomPayloadDefinition(metadata)
-        ? getLegacyQuiltMetadataCustomPayload(metadata)
-        : (metadata?.[ACTION_NAME] || {});
+    return metadata?.[ACTION_NAME] || {};
 }
-
-/**
- * Checks if the metadata contains a legacy custom payload definition.
- *
- * @param metadata - The raw Quilt metadata.
- *
- * @returns A boolean indicating if the legacy custom payload definition is present.
- */
-function containsLegacyCustomPayloadDefinition(metadata: RawQuiltMetadata): boolean {
-    return !!metadata?.projects;
-}
-
-/**
- * Gets the legacy custom payload from the Quilt metadata.
- *
- * @param metadata - The raw Quilt metadata.
- *
- * @returns The custom payload object.
- */
-function _getLegacyQuiltMetadataCustomPayload(metadata: RawQuiltMetadata): QuiltMetadataCustomPayload {
-    const legacyPayload = metadata?.projects;
-    const basePayload = metadata?.[ACTION_NAME];
-    return { ...legacyPayload, ...basePayload };
-}
-
-/**
- * Gets the legacy custom payload from the Quilt metadata.
- *
- * @param metadata - The raw Quilt metadata.
- *
- * @returns The custom payload object.
- *
- * @deprecated
- *
- * Use top-level `mc-publish` field in your mod metadata.
- */
-const getLegacyQuiltMetadataCustomPayload = deprecate(
-    _getLegacyQuiltMetadataCustomPayload,
-    "Use top-level `mc-publish` field in your quilt.mod.json.",
-);
 
 /**
  * A list of default mod loaders associated with the Quilt loader.

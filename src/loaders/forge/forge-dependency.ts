@@ -4,11 +4,8 @@ import { PlatformType } from "@/platforms";
 import { $i } from "@/utils/collections";
 import { asString } from "@/utils/string-utils";
 import { PartialRecord } from "@/utils/types";
-import { deprecate } from "node:util";
 import { ForgeEnvironmentType } from "./forge-environment-type";
 import { RawForgeMetadata } from "./raw-forge-metadata";
-
-// _ TODO: Remove the deprecated stuff in v4.0.
 
 /**
  * A dependency configuration for a Forge mod.
@@ -67,20 +64,6 @@ export interface ForgeDependency {
      * Custom action payload.
      */
     [ACTION_NAME]?: ForgeDependencyCustomPayload;
-
-    /**
-     * Custom action payload (legacy).
-     *
-     * @deprecated
-     *
-     * Use [{@link ACTION_NAME}] instead.
-     */
-    custom?: {
-        /**
-         * Custom action payload.
-         */
-        [ACTION_NAME]?: ForgeDependencyCustomPayload;
-    }
 }
 
 /**
@@ -160,47 +143,5 @@ export function normalizeForgeDependency(dependency: ForgeDependency): Dependenc
  * @returns The custom payload object.
  */
 function getForgeDependencyCustomPayload(dependency: ForgeDependency): ForgeDependencyCustomPayload {
-    return containsLegacyForgeDependencyCustomPayload(dependency)
-        ? getLegacyForgeDependencyCustomPayload(dependency)
-        : (dependency?.[ACTION_NAME] || {});
+    return dependency?.[ACTION_NAME] || {};
 }
-
-/**
- * Checks if the dependency contains a legacy custom payload definition.
- *
- * @param dependency - The dependency to check.
- *
- * @returns A boolean indicating if the legacy custom payload definition is present.
- */
-function containsLegacyForgeDependencyCustomPayload(dependency: ForgeDependency): boolean {
-    return !!dependency?.custom?.[ACTION_NAME];
-}
-
-/**
- * Gets the legacy custom payload from the Forge dependency.
- *
- * @param dependency - The Forge dependency.
- *
- * @returns The custom payload object.
- */
-function _getLegacyForgeDependencyCustomPayload(dependency: ForgeDependency): ForgeDependencyCustomPayload {
-    const legacyPayload = dependency?.custom?.[ACTION_NAME];
-    const basePayload = dependency?.[ACTION_NAME];
-    return { ...legacyPayload, ...basePayload };
-}
-
-/**
- * Gets the legacy custom payload from the Forge dependency.
- *
- * @param dependency - The Forge dependency.
- *
- * @returns The custom payload object.
- *
- * @deprecated
- *
- * Define `mc-publish` property directly on your Forge dependency object instead of using nested `custom.mc-publish`.
- */
-const getLegacyForgeDependencyCustomPayload = deprecate(
-    _getLegacyForgeDependencyCustomPayload,
-    "Define `mc-publish` property directly on your Forge dependency object instead of using nested `custom.mc-publish`.",
-);

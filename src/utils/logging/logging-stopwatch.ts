@@ -64,7 +64,7 @@ function createMessageCallback<T extends string | StartCallback | StopCallback>(
 */
 // For God's sake, it's been 8 years!
 // https://github.com/microsoft/TypeScript/issues/4628
-// eslint-disable-next-line
+
 // @ts-expect-error: ts2417
 export class LoggingStopwatch extends Stopwatch {
     /**

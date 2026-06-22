@@ -2,7 +2,6 @@ import { PlatformType } from "@/platforms/platform-type";
 import { $i, isIterable } from "@/utils/collections";
 import { VersionRange, anyVersionRange } from "@/utils/versioning";
 import { DependencyType } from "./dependency-type";
-import { isLegacyDependencyFormat, parseLegacyDependencyFormat } from "./dependency.legacy";
 
 /**
  * Represents a dependency.
@@ -94,9 +93,7 @@ export type DependencyLike = Dependency | DependencyInfo | string;
  * @returns A {@link Dependency} object, or `undefined` if the string is invalid.
  */
 export function parseDependency(dependency: string): Dependency | undefined {
-    const dependencyInfo = isLegacyDependencyFormat(dependency)
-        ? parseLegacyDependencyFormat(dependency)
-        : parseDependencyFormat(dependency);
+    const dependencyInfo = parseDependencyFormat(dependency);
 
     return dependencyInfo && createDependency(dependencyInfo);
 }

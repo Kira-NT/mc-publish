@@ -111,7 +111,7 @@ export function normalizeNeoForgeDependency(dependency: NeoForgeDependency): Dep
     const ignoredPlatforms = typeof payload.ignore === "boolean" ? undefined : payload.ignore;
     const aliases = $i(PlatformType.values()).map(type => [type, payload[type] ? asString(payload[type]) : undefined] as const).filter(([, id]) => id).toMap();
     const type = NeoForgeDependencyType.toDependencyType(
-        dependency?.type || ((dependency?.mandatory ?? true) ? NeoForgeDependencyType.REQUIRED : NeoForgeDependencyType.OPTIONAL)
+        dependency?.type || ((dependency?.mandatory ?? true) ? NeoForgeDependencyType.REQUIRED : NeoForgeDependencyType.OPTIONAL),
     );
 
     return createDependency({

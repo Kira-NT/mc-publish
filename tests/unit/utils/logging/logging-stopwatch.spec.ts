@@ -72,7 +72,7 @@ describe("LoggingStopwatch", () => {
             const stopwatch = new LoggingStopwatch(logger, undefined, "Stopwatch stopped");
 
             expect(stopwatch.stop()).toBe(false);
-            expect(logger.info).not.toBeCalled();
+            expect(logger.info).not.toHaveBeenCalled();
         });
     });
 

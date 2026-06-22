@@ -172,16 +172,6 @@ export interface RawFabricMetadata {
          */
         [ACTION_NAME]?: FabricMetadataCustomPayload;
 
-        // _ TODO: Remove this field in v4.0.
-        /**
-         * Custom `ModManager` payload.
-         *
-         * @deprecated
-         *
-         * Use {@link ACTION_NAME} field instead.
-         */
-        modmanager?: FabricMetadataCustomPayload;
-
         /**
          * Custom key-value pairs.
          */

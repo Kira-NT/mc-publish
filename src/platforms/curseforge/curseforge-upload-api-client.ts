@@ -138,7 +138,7 @@ export class CurseForgeUploadApiClient {
 
             const uploadedFile = await retry(
                 () => this.uploadFile(fileData),
-                { onError: error => tryHandleUploadError(error, fileData) }
+                { onError: error => tryHandleUploadError(error, fileData) },
             );
 
             if (!createdVersion) {

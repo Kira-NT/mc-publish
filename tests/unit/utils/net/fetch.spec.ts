@@ -41,8 +41,8 @@ describe("createFetch", () => {
         expect(getHeader(fetchInstance.defaultHeaders, "X-Test")).toBe("Test");
         expect(response.status).toBe(200);
         expect(responseText).toBe("Success");
-        expect(handler).toBeCalledTimes(1);
-        expect(handler).toBeCalledWith(new URL("http://example.com/foo"), { headers: { "X-Test": "Test" } });
+        expect(handler).toHaveBeenCalledTimes(1);
+        expect(handler).toHaveBeenCalledWith(new URL("http://example.com/foo"), { headers: { "X-Test": "Test" } });
     });
 
     test("uses default options when not provided", () => {
@@ -64,10 +64,10 @@ describe("createFetch", () => {
         expect(fetchInstance).not.toBe(fetch);
         expect(response.status).toBe(200);
         expect(responseText).toBe("Success");
-        expect(handler).toBeCalledTimes(1);
-        expect(handler).toBeCalledWith("http://example.com", undefined);
-        expect(middleware).toBeCalledTimes(1);
-        expect(middleware).toBeCalledWith("http://example.com", undefined, expect.anything());
+        expect(handler).toHaveBeenCalledTimes(1);
+        expect(handler).toHaveBeenCalledWith("http://example.com", undefined);
+        expect(middleware).toHaveBeenCalledTimes(1);
+        expect(middleware).toHaveBeenCalledWith("http://example.com", undefined, expect.anything());
     });
 });
 

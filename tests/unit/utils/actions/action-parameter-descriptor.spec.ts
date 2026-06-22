@@ -5,7 +5,7 @@ import { getActionParameterDescriptor, getActionParameterDescriptors } from "@/u
 const METADATA = Object.freeze({
     name: "test-metadata",
     description: "Test description",
-    runs: { main: "index.js", using: "node16" },
+    runs: { main: "index.js", using: "node20" },
 
     inputs: {
         "foo": {

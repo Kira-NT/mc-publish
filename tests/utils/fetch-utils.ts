@@ -18,7 +18,7 @@ type FetchInterceptor = {
 };
 
 const FAKE_FETCH: Fetch = (url, request) => Promise.reject(
-    new Error(`Unsupported request: '${normalizeHttpMethod(request?.method)} ${url}'`)
+    new Error(`Unsupported request: '${normalizeHttpMethod(request?.method)} ${url}'`),
 );
 
 function normalizeHttpMethod(method: string): HttpMethod {

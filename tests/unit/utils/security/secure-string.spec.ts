@@ -35,7 +35,7 @@ describe("SecureString", () => {
         test("throws an error if trying to unwrap an improperly initialized secure string", () => {
             const secureString = new (SecureString as unknown as DateConstructor)() as unknown as SecureString;
 
-            expect(() => secureString.unwrap()).toThrowError("The SecureString instance was not properly initialized.");
+            expect(() => secureString.unwrap()).toThrow("The SecureString instance was not properly initialized.");
         });
     });
 

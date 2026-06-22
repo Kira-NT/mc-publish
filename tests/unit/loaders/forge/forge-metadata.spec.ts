@@ -74,7 +74,7 @@ describe("ForgeMetadata", () => {
     });
 
     describe("gameVersions", () => {
-        test("returns an empty array if no dependencies were specified", () => {
+        test("returns an empty array if no game versions were specified", () => {
             const metadata = ForgeMetadata.from({} as RawForgeMetadata);
 
             expect(metadata.gameVersions).toEqual([]);

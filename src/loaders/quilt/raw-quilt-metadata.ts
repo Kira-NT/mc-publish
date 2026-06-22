@@ -6,8 +6,6 @@ import { QuiltLicense } from "./quilt-license";
 import { QuiltPlugin } from "./quilt-plugin";
 import { QuiltMetadataCustomPayload } from "./quilt-metadata-custom-payload";
 
-// _ TODO: Remove the deprecated stuff in v4.0.
-
 /**
  * The metadata file for a Quilt mod.
  */
@@ -165,15 +163,6 @@ export interface RawQuiltMetadata {
      * Custom action payload.
      */
     [ACTION_NAME]?: QuiltMetadataCustomPayload;
-
-    /**
-     * Custom action payload (legacy).
-     *
-     * @deprecated
-     *
-     * Use [{@link ACTION_NAME}] instead.
-     */
-    projects?: QuiltMetadataCustomPayload;
 }
 
 /**

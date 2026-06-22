@@ -406,8 +406,8 @@ describe("toType", () => {
             }
 
             expect(toType(123, Convertible)).toBe("123");
-            expect(convert).toBeCalledTimes(1);
-            expect(convert).toBeCalledWith(123);
+            expect(convert).toHaveBeenCalledTimes(1);
+            expect(convert).toHaveBeenCalledWith(123);
         });
 
         test("converts a value via the standard 'convert' function", () => {
@@ -416,8 +416,8 @@ describe("toType", () => {
             };
 
             expect(toType(123, convertible)).toBe("123");
-            expect(convertible.convert).toBeCalledTimes(1);
-            expect(convertible.convert).toBeCalledWith(123);
+            expect(convertible.convert).toHaveBeenCalledTimes(1);
+            expect(convertible.convert).toHaveBeenCalledWith(123);
         });
 
         test("converts a value via a first function that start with 'convert'", () => {
@@ -426,8 +426,8 @@ describe("toType", () => {
             };
 
             expect(toType(123, convertible)).toBe("123");
-            expect(convertible.convertObjectToNumber).toBeCalledTimes(1);
-            expect(convertible.convertObjectToNumber).toBeCalledWith(123);
+            expect(convertible.convertObjectToNumber).toHaveBeenCalledTimes(1);
+            expect(convertible.convertObjectToNumber).toHaveBeenCalledWith(123);
         });
 
         test("converts a value via the prioritized 'convert' function", () => {
@@ -441,8 +441,8 @@ describe("toType", () => {
             };
 
             expect(toType(123, convertible)).toBe("123");
-            expect(convertible.convert).toBeCalledTimes(1);
-            expect(convertible.convert).toBeCalledWith(123);
+            expect(convertible.convert).toHaveBeenCalledTimes(1);
+            expect(convertible.convert).toHaveBeenCalledWith(123);
             expect(convertible.convertObjectToNumber).not.toHaveBeenCalled();
             expect(convertible.from).not.toHaveBeenCalled();
             expect(convertible.fromObjectTonNumber).not.toHaveBeenCalled();
@@ -460,8 +460,8 @@ describe("toType", () => {
             };
 
             expect(toType(123, convertible)).toBe("123");
-            expect(convertible.from).toBeCalledTimes(1);
-            expect(convertible.from).toBeCalledWith(123);
+            expect(convertible.from).toHaveBeenCalledTimes(1);
+            expect(convertible.from).toHaveBeenCalledWith(123);
             expect(convertible.convertObjectToNumber).not.toHaveBeenCalled();
             expect(convertible.fromObjectTonNumber).not.toHaveBeenCalled();
             expect(convertible.parse).not.toHaveBeenCalled();
@@ -479,8 +479,8 @@ describe("toType", () => {
             };
 
             expect(toType("123", convertible)).toBe(123);
-            expect(convertible.parse).toBeCalledTimes(1);
-            expect(convertible.parse).toBeCalledWith("123");
+            expect(convertible.parse).toHaveBeenCalledTimes(1);
+            expect(convertible.parse).toHaveBeenCalledWith("123");
             expect(convertible.parseToNumber).not.toHaveBeenCalled();
             expect(convertible.convert).not.toHaveBeenCalled();
             expect(convertible.convertObjectToNumber).not.toHaveBeenCalled();
@@ -522,8 +522,8 @@ describe("toType", () => {
             };
 
             expect(toType("123", parsable)).toBe(123);
-            expect(parsable.parse).toBeCalledTimes(1);
-            expect(parsable.parse).toBeCalledWith("123");
+            expect(parsable.parse).toHaveBeenCalledTimes(1);
+            expect(parsable.parse).toHaveBeenCalledWith("123");
         });
 
         test("parses a value via a first function that start with 'parse'", () => {
@@ -532,8 +532,8 @@ describe("toType", () => {
             };
 
             expect(toType("123", parsable)).toBe(123);
-            expect(parsable.parseStringToNumber).toBeCalledTimes(1);
-            expect(parsable.parseStringToNumber).toBeCalledWith("123");
+            expect(parsable.parseStringToNumber).toHaveBeenCalledTimes(1);
+            expect(parsable.parseStringToNumber).toHaveBeenCalledWith("123");
         });
 
         test("returns undefined when the input value is not a string", () => {
@@ -545,10 +545,10 @@ describe("toType", () => {
             };
 
             expect(toType(123, parsable)).toBeUndefined();
-            expect(parsable.parse).not.toBeCalled();
+            expect(parsable.parse).not.toHaveBeenCalled();
 
             expect(toType(123, anotherParsable)).toBeUndefined();
-            expect(anotherParsable.parseStringToNumber).not.toBeCalled();
+            expect(anotherParsable.parseStringToNumber).not.toHaveBeenCalled();
         });
 
         test("returns undefined when conversion is not possible", () => {

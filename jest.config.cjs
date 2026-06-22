@@ -4,7 +4,6 @@ module.exports = {
         "\\.ts$": ["ts-jest", {
             useESM: true,
             diagnostics: false,
-            isolatedModules: true,
         }],
         "\\.js$": "babel-jest",
     },

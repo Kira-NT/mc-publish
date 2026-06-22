@@ -62,7 +62,7 @@ export function toFormData(obj: unknown): FormData {
     return $i(getOwnEntries(obj))
         .flatMap(([key, value]) => Array.isArray(value)
             ? $i(value).map(v => [key, v])
-            : [[key, value]]
+            : [[key, value]],
         )
         .filter(([, value]) => value !== undefined && value !== null)
         .map(([key, value]) => [key, ...toFormDataEntry(value)] as const)

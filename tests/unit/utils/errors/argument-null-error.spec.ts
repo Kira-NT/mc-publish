@@ -27,15 +27,15 @@ describe("ArgumentNullError", () => {
 
     describe("throwIfNull", () => {
         test("throws an ArgumentNullError with a specified parameter name if the argument is null", () => {
-            expect(() => ArgumentNullError.throwIfNull(null, "param1")).toThrowError(new ArgumentNullError("param1"));
+            expect(() => ArgumentNullError.throwIfNull(null, "param1")).toThrow(new ArgumentNullError("param1"));
         });
 
         test("throws an ArgumentNullError with a specified parameter name if the argument is undefined", () => {
-            expect(() => ArgumentNullError.throwIfNull(undefined, "param1")).toThrowError(new ArgumentNullError("param1"));
+            expect(() => ArgumentNullError.throwIfNull(undefined, "param1")).toThrow(new ArgumentNullError("param1"));
         });
 
         test("throws an ArgumentNullError with the provided error message", () => {
-            expect(() => ArgumentNullError.throwIfNullOrEmpty(null, "param1", "I don't like nulls.")).toThrowError(new ArgumentNullError("param1", "I don't like nulls."));
+            expect(() => ArgumentNullError.throwIfNull(null, "param1", "I don't like nulls.")).toThrow(new ArgumentNullError("param1", "I don't like nulls."));
         });
 
         test("does not throw if the argument is not null or undefined", () => {

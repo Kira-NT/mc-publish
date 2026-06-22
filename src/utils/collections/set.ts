@@ -172,14 +172,14 @@ export class ArraySet<T> implements Set<T> {
      * This method exists because somebody thought that we need to keep
      * `Set`'s and `Map`'s APIs similar for some reason.
      */
-    keys(): IterableIterator<T> {
+    keys(): SetIterator<T> {
         return this._values[Symbol.iterator]();
     }
 
     /**
      * Returns an iterator over the values in the set.
      */
-    values(): IterableIterator<T> {
+    values(): SetIterator<T> {
         return this._values[Symbol.iterator]();
     }
 
@@ -192,7 +192,7 @@ export class ArraySet<T> implements Set<T> {
      * This method exists because somebody thought that we need to keep
      * `Set`'s and `Map`'s APIs similar for some reason.
      */
-    *entries(): IterableIterator<[T, T]> {
+    *entries(): SetIterator<[T, T]> {
         const values = this._values;
         for (let i = 0; i < values.length; ++i) {
             yield [values[i], values[i]];
@@ -205,19 +205,19 @@ export class ArraySet<T> implements Set<T> {
      * @param callbackFn - Function to execute for each value in the set.
      * @param thisArg - Object to use as `this` when executing `callbackFn`.
      */
-    forEach(callbackFn: (value: T, theSameValueAgain: T, set: ArraySet<T>) => void, thisArg?: unknown): void {
+    forEach(callbackFn: (value: T, theSameValueAgain: T, set: Set<T>) => void, thisArg?: unknown): void {
         callbackFn = thisArg === undefined ? callbackFn : callbackFn.bind(thisArg);
         const values = this._values;
 
         for (let i = 0; i < values.length; ++i) {
-            callbackFn(values[i], values[i], this);
+            callbackFn(values[i], values[i], this as unknown as Set<T>);
         }
     }
 
     /**
      * Returns an iterator over the values in the set.
      */
-    [Symbol.iterator](): IterableIterator<T> {
+    [Symbol.iterator](): SetIterator<T> {
         return this._values[Symbol.iterator]();
     }
 
@@ -227,4 +227,88 @@ export class ArraySet<T> implements Set<T> {
     get [Symbol.toStringTag](): string {
         return "Set";
     }
+
+    union<U>(other: ReadonlySetLike<U>): Set<T | U> {
+        const result = new Set<T | U>(this._values);
+        for (const value of _toIterable(other.keys())) {
+            result.add(value);
+        }
+        return result;
+    }
+
+    intersection<U>(other: ReadonlySetLike<U>): Set<T & U> {
+        const result = new Set<T & U>();
+        for (const value of this._values) {
+            if (other.has(value as unknown as U)) {
+                result.add(value as T & U);
+            }
+        }
+        return result;
+    }
+
+    difference<U>(other: ReadonlySetLike<U>): Set<T> {
+        const result = new Set<T>();
+        for (const value of this._values) {
+            if (!other.has(value as unknown as U)) {
+                result.add(value);
+            }
+        }
+        return result;
+    }
+
+    symmetricDifference<U>(other: ReadonlySetLike<U>): Set<T | U> {
+        const result = new Set<T | U>();
+        for (const value of this._values) {
+            if (!other.has(value as unknown as U)) {
+                result.add(value);
+            }
+        }
+        for (const value of _toIterable(other.keys())) {
+            if (!this.has(value as unknown as T)) {
+                result.add(value);
+            }
+        }
+        return result;
+    }
+
+    isSubsetOf(other: ReadonlySetLike<unknown>): boolean {
+        for (const value of this._values) {
+            if (!other.has(value)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    isSupersetOf(other: ReadonlySetLike<unknown>): boolean {
+        for (const value of _toIterable(other.keys())) {
+            if (!this.has(value as T)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    isDisjointFrom(other: ReadonlySetLike<unknown>): boolean {
+        for (const value of this._values) {
+            if (other.has(value)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
+/**
+ * Wraps a plain `Iterator` so it can be used with `for...of` and other
+ * constructs that expect an `Iterable`.
+ */
+function _toIterable<T>(iterator: Iterator<T>): IterableIterator<T> {
+    return {
+        next: () => iterator.next(),
+        [Symbol.iterator]() {
+            return this;
+        },
+    };
 }

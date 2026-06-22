@@ -56,7 +56,7 @@ export class TypeScriptImport extends AbstractTypeScriptNode {
             path,
             options?.namedImports ? new Set(options.namedImports) : undefined,
             options?.defaultImportName,
-            options?.wildcardImportName
+            options?.wildcardImportName,
         );
     }
 

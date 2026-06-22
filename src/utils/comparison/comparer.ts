@@ -67,7 +67,7 @@ const BASE_COMPARER: CompositeComparer<unknown> = createComparer<unknown>((left,
  * defined by the built-in `>` and `<` operators.
  */
 const DEFAULT_COMPARER: CompositeComparer<unknown> = BASE_COMPARER.thenBy(
-    (left, right) => left < right ? -1 : left > right ? 1 : 0
+    (left, right) => left < right ? -1 : left > right ? 1 : 0,
 );
 
 /**

@@ -150,7 +150,7 @@ export function normalizeQuiltDependency(dependency: QuiltDependency): Dependenc
     );
     const aliases = $i(DEPENDENCY_ALIASES.get(id) as Iterable<readonly [PlatformType, string]> || [])
         .concat(
-            $i(PlatformType.values()).map(type => [type, payload[type] ? asString(payload[type]) : undefined] as const)
+            $i(PlatformType.values()).map(type => [type, payload[type] ? asString(payload[type]) : undefined] as const),
         )
         .filter(([, id]) => id)
         .toMap();

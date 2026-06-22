@@ -3,8 +3,6 @@ import { ForgeDependency } from "./forge-dependency";
 import { ForgeMod } from "./forge-mod";
 import { ForgeMetadataCustomPayload } from "./forge-metadata-custom-payload";
 
-// _ TODO: Remove the deprecated stuff in v4.0.
-
 /**
  * The metadata file for a Forge mod.
  */
@@ -69,34 +67,6 @@ export interface RawForgeMetadata {
      * Custom action payload.
      */
     [ACTION_NAME]?: ForgeMetadataCustomPayload;
-
-    /**
-     * Custom action payload (legacy).
-     *
-     * @deprecated
-     *
-     * Use [{@link ACTION_NAME}] instead.
-     */
-    projects?: ForgeMetadataCustomPayload;
-
-    /**
-     * Custom action payload (legacy).
-     *
-     * @deprecated
-     *
-     * Use [{@link ACTION_NAME}] instead.
-     */
-    custom?: {
-        /**
-         * Custom action payload.
-         */
-        [ACTION_NAME]?: ForgeMetadataCustomPayload;
-
-        /**
-         * Custom action payload.
-         */
-        projects?: ForgeMetadataCustomPayload;
-    };
 }
 
 /**
