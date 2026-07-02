@@ -112,7 +112,7 @@ export interface ActionMetadata {
          *
          * Due to the deprecation of Node12 and Node16, the available options are quite limited now.
          */
-        using: "node20";
+        using: "node24";
 
         /**
          * The file that contains your action code.

@@ -411,7 +411,7 @@ describe("getAllActionInputsAsObjectUsingMetadata", () => {
     const METADATA = Object.freeze({
         name: "test-metadata",
         description: "Test description",
-        runs: { main: "index.js", using: "node20" },
+        runs: { main: "index.js", using: "node24" },
 
         inputs: {
             name1: {

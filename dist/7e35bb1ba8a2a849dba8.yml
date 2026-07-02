@@ -471,5 +471,5 @@ outputs:
       for the new version on GitHub, such as file `name`, `id`, and download
       `url`.
 runs:
-  using: node20
+  using: node24
   main: dist/index.js
