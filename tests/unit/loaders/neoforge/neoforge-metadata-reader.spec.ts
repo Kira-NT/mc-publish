@@ -1,17 +1,13 @@
 import { zipFile } from "@/../tests/utils/zip-utils";
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import { NeoForgeMetadata } from "@/loaders/neoforge/neoforge-metadata";
 import { NeoForgeMetadataReader } from "@/loaders/neoforge/neoforge-metadata-reader";
 
-beforeEach(async () => {
-    mockFs({
-        "neoforge.mod.jar": await zipFile([__dirname, "../../../content/neoforge/neoforge.mods.toml"], "META-INF/neoforge.mods.toml"),
+beforeEach(() => {
+    vol.fromJSON({
+        "neoforge.mod.jar": zipFile([__dirname, "../../../content/neoforge/neoforge.mods.toml"], "META-INF/neoforge.mods.toml"),
         "text.txt": "",
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("NeoForgeMetadataReader", () => {

@@ -1,6 +1,6 @@
 import { zipFile } from "@/../tests/utils/zip-utils";
 import { LoaderType } from "@/loaders/loader-type";
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import {
     LoaderMetadataReader,
     combineLoaderMetadataReaders,
@@ -8,19 +8,15 @@ import {
     createDefaultLoaderMetadataReader,
 } from "@/loaders/loader-metadata-reader";
 
-beforeEach(async () => {
-    mockFs({
-        "fabric.jar": await zipFile([__dirname, "../../content/fabric/fabric.mod.json"]),
-        "quilt.jar": await zipFile([__dirname, "../../content/quilt/quilt.mod.json"]),
-        "forge.jar": await zipFile([__dirname, "../../content/forge/mods.toml"], "META-INF/mods.toml"),
-        "neoforge.jar": await zipFile([__dirname, "../../content/neoforge/neoforge.mods.toml"], "META-INF/neoforge.mods.toml"),
-        "neoforge.legacy.jar": await zipFile([__dirname, "../../content/neoforge/neoforge.mods.toml"], "META-INF/mods.toml"),
+beforeEach(() => {
+    vol.fromJSON({
+        "fabric.jar": zipFile([__dirname, "../../content/fabric/fabric.mod.json"]),
+        "quilt.jar": zipFile([__dirname, "../../content/quilt/quilt.mod.json"]),
+        "forge.jar": zipFile([__dirname, "../../content/forge/mods.toml"], "META-INF/mods.toml"),
+        "neoforge.jar": zipFile([__dirname, "../../content/neoforge/neoforge.mods.toml"], "META-INF/neoforge.mods.toml"),
+        "neoforge.legacy.jar": zipFile([__dirname, "../../content/neoforge/neoforge.mods.toml"], "META-INF/mods.toml"),
         "text.txt": "",
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("combineLoaderMetadataReaders", () => {

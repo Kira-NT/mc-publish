@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { actualFs } from "@/../tests/utils/actual-fs";
 import { resolve as resolvePath } from "node:path";
 import { parse as parseToml } from "toml";
 import { DependencyType } from "@/dependencies/dependency-type";
@@ -8,7 +8,7 @@ import { RawForgeMetadata } from "@/loaders/forge/raw-forge-metadata";
 import { ForgeMetadata } from "@/loaders/forge/forge-metadata";
 
 const RAW_METADATA: RawForgeMetadata = Object.freeze(parseToml(
-    readFileSync(resolvePath(__dirname, "../../../content/forge/mods.toml"), "utf8")
+    actualFs.readFileSync(resolvePath(__dirname, "../../../content/forge/mods.toml"), "utf8")
 ));
 
 describe("ForgeMetadata", () => {

@@ -1,5 +1,5 @@
-import mockFs from "mock-fs";
-import { readFileSync } from "node:fs";
+import { vol } from "memfs";
+import { actualFs } from "@/../tests/utils/actual-fs";
 import { resolve } from "node:path";
 import { createFakeFetch } from "../../../utils/fetch-utils";
 import { FormData } from "@/utils/net/form-data";
@@ -13,19 +13,19 @@ import { MODRINTH_API_URL, ModrinthApiClient } from "@/platforms/modrinth/modrin
 
 const DB = Object.freeze({
     loaders: Object.freeze(JSON.parse(
-        readFileSync(resolve(__dirname, "../../../content/modrinth/loader.json"), "utf8")
+        actualFs.readFileSync(resolve(__dirname, "../../../content/modrinth/loader.json"), "utf8")
     )) as ModrinthLoader[],
 
     gameVersions: Object.freeze(JSON.parse(
-        readFileSync(resolve(__dirname, "../../../content/modrinth/game_version.json"), "utf8")
+        actualFs.readFileSync(resolve(__dirname, "../../../content/modrinth/game_version.json"), "utf8")
     )) as ModrinthGameVersion[],
 
     projects: Object.freeze(JSON.parse(
-        readFileSync(resolve(__dirname, "../../../content/modrinth/projects.json"), "utf8")
+        actualFs.readFileSync(resolve(__dirname, "../../../content/modrinth/projects.json"), "utf8")
     )) as ModrinthProject[],
 
     versions: Object.freeze(JSON.parse(
-        readFileSync(resolve(__dirname, "../../../content/modrinth/versions.json"), "utf8")
+        actualFs.readFileSync(resolve(__dirname, "../../../content/modrinth/versions.json"), "utf8")
     )) as ModrinthVersion[],
 });
 
@@ -196,11 +196,7 @@ beforeEach(() => {
     const fileNames = DB.versions.flatMap(x => x.files).map(x => x.filename);
     const fakeFiles = fileNames.reduce((a, b) => ({ ...a, [b]: "" }), {});
 
-    mockFs(fakeFiles);
-});
-
-afterEach(() => {
-    mockFs.restore();
+    vol.fromJSON(fakeFiles);
 });
 
 describe("ModrinthApiClient", () => {

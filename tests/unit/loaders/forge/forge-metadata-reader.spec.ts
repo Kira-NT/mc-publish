@@ -1,17 +1,13 @@
 import { zipFile } from "@/../tests/utils/zip-utils";
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import { ForgeMetadata } from "@/loaders/forge/forge-metadata";
 import { ForgeMetadataReader } from "@/loaders/forge/forge-metadata-reader";
 
-beforeEach(async () => {
-    mockFs({
-        "forge.mod.jar": await zipFile([__dirname, "../../../content/forge/mods.toml"], "META-INF/mods.toml"),
+beforeEach(() => {
+    vol.fromJSON({
+        "forge.mod.jar": zipFile([__dirname, "../../../content/forge/mods.toml"], "META-INF/mods.toml"),
         "text.txt": "",
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("ForgeMetadataReader", () => {

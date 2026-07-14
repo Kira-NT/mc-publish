@@ -1,13 +1,13 @@
 import { resolve } from "node:path";
-import { readFile } from "node:fs/promises";
+import { actualFsPromises } from "@/../tests/utils/actual-fs";
 import { BUKKIT_GAME_VERSION_TYPE } from "@/platforms/curseforge/curseforge-game-version-type";
 import { createCurseForgeGameVersionMap } from "@/platforms/curseforge/curseforge-game-version-map";
 
 describe("createCurseForgeGameVersionMap", () => {
     test("organizes the provided versions into their respective buckets", async () => {
         const [versionsSource, versionTypesSource] = await Promise.all([
-            readFile(resolve(__dirname, "../../../content/curseforge/versions.json"), "utf8"),
-            readFile(resolve(__dirname, "../../../content/curseforge/version-types.json"), "utf8"),
+            actualFsPromises.readFile(resolve(__dirname, "../../../content/curseforge/versions.json"), "utf8"),
+            actualFsPromises.readFile(resolve(__dirname, "../../../content/curseforge/version-types.json"), "utf8"),
         ]);
         const versions = JSON.parse(versionsSource);
         const versionTypes = [...JSON.parse(versionTypesSource), BUKKIT_GAME_VERSION_TYPE];

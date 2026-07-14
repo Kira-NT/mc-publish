@@ -1,6 +1,6 @@
-import { readFileSync } from "node:fs";
+import { actualFs } from "@/../tests/utils/actual-fs";
 import { resolve } from "node:path";
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import { createFakeFetch } from "../../../utils/fetch-utils";
 import { HttpResponse } from "@/utils/net/http-response";
 import { GitHubRelease, GitHubReleaseInit, GitHubReleasePatch } from "@/platforms/github/github-release";
@@ -8,7 +8,7 @@ import { GITHUB_API_URL, GitHubApiClient } from "@/platforms/github/github-api-c
 
 const DB = Object.freeze({
     releases: Object.freeze(JSON.parse(
-        readFileSync(resolve(__dirname, "../../../content/github/releases.json"), "utf8")
+        actualFs.readFileSync(resolve(__dirname, "../../../content/github/releases.json"), "utf8")
     )) as GitHubRelease[],
 });
 
@@ -120,11 +120,7 @@ beforeEach(() => {
     const fileNames = DB.releases.flatMap(x => x.assets).map(x => x.name);
     const fakeFiles = fileNames.reduce((a, b) => ({ ...a, [b]: "" }), {});
 
-    mockFs(fakeFiles);
-});
-
-afterEach(() => {
-    mockFs.restore();
+    vol.fromJSON(fakeFiles);
 });
 
 describe("GitHubApiClient", () => {

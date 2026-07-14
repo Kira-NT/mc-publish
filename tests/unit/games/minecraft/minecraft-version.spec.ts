@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { actualFs } from "@/../tests/utils/actual-fs";
 import { resolve } from "node:path";
 import { parseVersion } from "@/utils/versioning/version";
 import { VersionType } from "@/utils/versioning/version-type";
@@ -87,7 +87,7 @@ describe("MinecraftVersion", () => {
 
 describe("getMinecraftVersionManifestEntries", () => {
     const manifest : MinecraftVersionManifest = JSON.parse(
-        readFileSync(resolve(__dirname, "../../../content/mojang/version_manifest_v2.json"), "utf8")
+        actualFs.readFileSync(resolve(__dirname, "../../../content/mojang/version_manifest_v2.json"), "utf8")
     );
 
     test("returns correct number of entries", () => {

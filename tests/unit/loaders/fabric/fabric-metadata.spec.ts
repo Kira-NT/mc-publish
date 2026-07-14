@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { actualFs } from "@/../tests/utils/actual-fs";
 import { resolve as resolvePath } from "node:path";
 import { DependencyType } from "@/dependencies/dependency-type";
 import { PlatformType } from "@/platforms/platform-type";
@@ -7,7 +7,7 @@ import { RawFabricMetadata } from "@/loaders/fabric/raw-fabric-metadata";
 import { FabricMetadata } from "@/loaders/fabric/fabric-metadata";
 
 const RAW_METADATA: RawFabricMetadata = Object.freeze(JSON.parse(
-    readFileSync(resolvePath(__dirname, "../../../content/fabric/fabric.mod.json"), "utf8")
+    actualFs.readFileSync(resolvePath(__dirname, "../../../content/fabric/fabric.mod.json"), "utf8")
 ));
 
 describe("FabricMetadata", () => {

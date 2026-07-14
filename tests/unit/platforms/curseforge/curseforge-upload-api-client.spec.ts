@@ -1,6 +1,6 @@
-import { readFileSync } from "node:fs";
+import { actualFs } from "@/../tests/utils/actual-fs";
 import { resolve } from "node:path";
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import { createFakeFetch } from "../../../utils/fetch-utils";
 import { FormData } from "@/utils/net/form-data";
 import { HttpResponse } from "@/utils/net/http-response";
@@ -16,11 +16,11 @@ const FILES = Object.freeze([
 
 const DB = Object.freeze({
     versionTypes: Object.freeze(JSON.parse(
-        readFileSync(resolve(__dirname, "../../../content/curseforge/version-types.json"), "utf8")
+        actualFs.readFileSync(resolve(__dirname, "../../../content/curseforge/version-types.json"), "utf8")
     )),
 
     versions: Object.freeze(JSON.parse(
-        readFileSync(resolve(__dirname, "../../../content/curseforge/versions.json"), "utf8")
+        actualFs.readFileSync(resolve(__dirname, "../../../content/curseforge/versions.json"), "utf8")
     )),
 
     projects: Object.freeze([
@@ -157,11 +157,7 @@ const CURSEFORGE_FETCH = createFakeFetch({
 beforeEach(() => {
     const fakeFiles = FILES.reduce((a, b) => ({ ...a, [b]: "" }), {});
 
-    mockFs(fakeFiles);
-});
-
-afterEach(() => {
-    mockFs.restore();
+    vol.fromJSON(fakeFiles);
 });
 
 describe("CurseForgeUploadApiClient", () => {

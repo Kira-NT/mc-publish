@@ -1,6 +1,6 @@
-import { readFileSync } from "node:fs";
+import { actualFs } from "@/../tests/utils/actual-fs";
 import { resolve } from "node:path";
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import { createCombinedFetch, createFakeFetch } from "../../../utils/fetch-utils";
 import { PlatformType } from "@/platforms/platform-type";
 import { SecureString } from "@/utils/security/secure-string";
@@ -17,11 +17,11 @@ import { CurseForgeUploader } from "@/platforms/curseforge/curseforge-uploader";
 
 const DB = Object.freeze({
     versionTypes: Object.freeze(JSON.parse(
-        readFileSync(resolve(__dirname, "../../../content/curseforge/version-types.json"), "utf8")
+        actualFs.readFileSync(resolve(__dirname, "../../../content/curseforge/version-types.json"), "utf8")
     )),
 
     versions: Object.freeze(JSON.parse(
-        readFileSync(resolve(__dirname, "../../../content/curseforge/versions.json"), "utf8")
+        actualFs.readFileSync(resolve(__dirname, "../../../content/curseforge/versions.json"), "utf8")
     )),
 });
 
@@ -96,13 +96,9 @@ const CURSEFORGE_FETCH = createCombinedFetch(
 );
 
 beforeEach(() => {
-    mockFs({
+    vol.fromJSON({
         "file.txt": "",
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("CurseForgeUploader", () => {

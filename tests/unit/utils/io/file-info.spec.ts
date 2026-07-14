@@ -1,5 +1,4 @@
-import { statSync } from "node:fs";
-import mockFs from "mock-fs";
+import { fs as memfs, vol } from "memfs";
 import { zipContent } from "../../../utils/zip-utils";
 import {
     FileInfo,
@@ -14,18 +13,14 @@ import {
     readZippedFile,
 } from "@/utils/io/file-info";
 
-beforeEach(async () => {
-    mockFs({
+beforeEach(() => {
+    vol.fromNestedJSON({
         "path/to": {
             "test.txt": "test",
             "test.json": JSON.stringify({ foo: 42 }),
-            "test.zip": await zipContent("test", "test.txt"),
+            "test.zip": zipContent("test", "test.txt"),
         },
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("FileInfo", () => {
@@ -95,7 +90,7 @@ describe("FileInfo", () => {
         test("returns the file size", () => {
             const info = new FileInfo("path/to/test.txt");
 
-            expect(info.size).toBe(statSync("path/to/test.txt").size);
+            expect(info.size).toBe(memfs.statSync("path/to/test.txt").size);
         });
 
         test("throws if the file does not exist", () => {

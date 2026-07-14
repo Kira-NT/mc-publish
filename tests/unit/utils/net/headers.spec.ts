@@ -1,17 +1,12 @@
-import { createReadStream, statSync } from "node:fs";
-import mockFs from "mock-fs";
+import { fs as memfs, vol } from "memfs";
 import { ArrayMap, MultiMap } from "@/utils/collections/map";
 import { Blob } from "@/utils/net/blob";
 import { appendHeader, appendHeaders, cloneHeaders, deleteHeader, deleteHeaders, getHeader, hasHeader, inferHttpRequestBodyHeaders, setDefaultHeader, setDefaultHeaders, setHeader, setHeaders } from "@/utils/net";
 
 beforeEach(() => {
-    mockFs({
+    vol.fromJSON({
         "file.json": "{}",
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("hasHeader", () => {
@@ -575,11 +570,11 @@ describe("inferHttpRequestBodyHeaders", () => {
     });
 
     test("returns correct headers when body is a ReadableStream created from a file path", () => {
-        const body = createReadStream("file.json");
+        const body = memfs.createReadStream("file.json");
 
         const headers = inferHttpRequestBodyHeaders(body);
 
         expect(headers["Content-Type"]).toBe("application/octet-stream");
-        expect(headers["Content-Length"]).toBe(String(statSync("file.json").size));
+        expect(headers["Content-Length"]).toBe(String(memfs.statSync("file.json").size));
     });
 });

@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { actualFs } from "@/../tests/utils/actual-fs";
 import { resolve as resolvePath } from "node:path";
 import { parse as parseToml } from "toml";
 import { DependencyType } from "@/dependencies/dependency-type";
@@ -8,7 +8,7 @@ import { RawNeoForgeMetadata } from "@/loaders/neoforge/raw-neoforge-metadata";
 import { NeoForgeMetadata } from "@/loaders/neoforge/neoforge-metadata";
 
 const RAW_METADATA: RawNeoForgeMetadata = Object.freeze(parseToml(
-    readFileSync(resolvePath(__dirname, "../../../content/neoforge/neoforge.mods.toml"), "utf8")
+    actualFs.readFileSync(resolvePath(__dirname, "../../../content/neoforge/neoforge.mods.toml"), "utf8")
 ));
 
 describe("NeoForgeMetadata", () => {

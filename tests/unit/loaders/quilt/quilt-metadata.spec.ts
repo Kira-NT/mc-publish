@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { actualFs } from "@/../tests/utils/actual-fs";
 import { resolve as resolvePath } from "node:path";
 import { DependencyType } from "@/dependencies/dependency-type";
 import { PlatformType } from "@/platforms/platform-type";
@@ -7,7 +7,7 @@ import { RawQuiltMetadata } from "@/loaders/quilt/raw-quilt-metadata";
 import { QuiltMetadata } from "@/loaders/quilt/quilt-metadata";
 
 const RAW_METADATA: RawQuiltMetadata = Object.freeze(JSON.parse(
-    readFileSync(resolvePath(__dirname, "../../../content/quilt/quilt.mod.json"), "utf8")
+    actualFs.readFileSync(resolvePath(__dirname, "../../../content/quilt/quilt.mod.json"), "utf8")
 ));
 
 describe("QuiltMetadata", () => {

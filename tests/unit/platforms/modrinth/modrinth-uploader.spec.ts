@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
-import { readFileSync } from "node:fs";
-import mockFs from "mock-fs";
+import { actualFs } from "@/../tests/utils/actual-fs";
+import { vol } from "memfs";
 import { createFakeFetch } from "../../../utils/fetch-utils";
 import { SecureString } from "@/utils/security/secure-string";
 import { PlatformType } from "@/platforms/platform-type";
@@ -18,11 +18,11 @@ import { LoaderEnvironmentType } from "@/loaders/loader-environment-type";
 
 const DB = Object.freeze({
     loaders: Object.freeze(JSON.parse(
-        readFileSync(resolve(__dirname, "../../../content/modrinth/loader.json"), "utf8")
+        actualFs.readFileSync(resolve(__dirname, "../../../content/modrinth/loader.json"), "utf8")
     )),
 
     gameVersions: Object.freeze(JSON.parse(
-        readFileSync(resolve(__dirname, "../../../content/modrinth/game_version.json"), "utf8")
+        actualFs.readFileSync(resolve(__dirname, "../../../content/modrinth/game_version.json"), "utf8")
     )),
 });
 
@@ -82,13 +82,9 @@ const MODRINTH_FETCH = createFakeFetch({
 });
 
 beforeEach(() => {
-    mockFs({
+    vol.fromJSON({
         "file.txt": "",
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("ModrinthUploader", () => {

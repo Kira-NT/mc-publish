@@ -1,4 +1,4 @@
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import { createFakeFetch } from "../../../utils/fetch-utils";
 import { PlatformType } from "@/platforms/platform-type";
 import { SecureString } from "@/utils/security/secure-string";
@@ -63,13 +63,9 @@ const CONTEXT = new GitHubContext({
 });
 
 beforeEach(() => {
-    mockFs({
+    vol.fromJSON({
         "file.txt": "",
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("GitHubUploader", () => {

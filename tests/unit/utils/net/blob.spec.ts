@@ -1,14 +1,10 @@
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import { Blob, isBlob, readBlob, readBlobSync } from "@/utils/net/blob";
 
 beforeEach(() => {
-    mockFs({
+    vol.fromJSON({
         "test.txt": "test",
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("isBlob", () => {

@@ -1,17 +1,13 @@
 import { zipFile } from "@/../tests/utils/zip-utils";
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import { FabricMetadata } from "@/loaders/fabric/fabric-metadata";
 import { FabricMetadataReader } from "@/loaders/fabric/fabric-metadata-reader";
 
-beforeEach(async () => {
-    mockFs({
-        "fabric.mod.jar": await zipFile([__dirname, "../../../content/fabric/fabric.mod.json"]),
+beforeEach(() => {
+    vol.fromJSON({
+        "fabric.mod.jar": zipFile([__dirname, "../../../content/fabric/fabric.mod.json"]),
         "text.txt": "",
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("FabricMetadataReader", () => {

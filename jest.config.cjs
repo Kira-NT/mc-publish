@@ -14,4 +14,7 @@ module.exports = {
         "^@/(.*)$": "<rootDir>/src/$1",
     },
     transformIgnorePatterns: [],
+    setupFilesAfterEnv: [
+        "./tests/setup-memfs.ts",
+    ],
 };

@@ -1,16 +1,12 @@
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import { FileInfo } from "@/utils/io/file-info";
 import { FILE_PATH, FormData, isFormData, toFormData } from "@/utils/net/form-data";
 import { isBlob } from "@/utils/net/blob";
 
 beforeEach(() => {
-    mockFs({
+    vol.fromJSON({
         "file.json": "{}",
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("FormData", () => {

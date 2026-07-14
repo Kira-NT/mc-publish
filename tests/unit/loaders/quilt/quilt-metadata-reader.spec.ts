@@ -1,17 +1,13 @@
 import { zipFile } from "@/../tests/utils/zip-utils";
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import { QuiltMetadata } from "@/loaders/quilt/quilt-metadata";
 import { QuiltMetadataReader } from "@/loaders/quilt/quilt-metadata-reader";
 
-beforeEach(async () => {
-    mockFs({
-        "quilt.mod.jar": await zipFile([__dirname, "../../../content/quilt/quilt.mod.json"]),
+beforeEach(() => {
+    vol.fromJSON({
+        "quilt.mod.jar": zipFile([__dirname, "../../../content/quilt/quilt.mod.json"]),
         "text.txt": "",
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("QuiltMetadataReader", () => {

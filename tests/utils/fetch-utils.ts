@@ -1,5 +1,4 @@
-import { readFile } from "node:fs/promises";
-import { existsSync } from "node:fs";
+import { actualFs, actualFsPromises } from "./actual-fs";
 import { resolve } from "node:path";
 import { Fetch, HttpMethod, HttpRequest, HttpResponse, createFetch } from "@/utils/net";
 
@@ -32,8 +31,8 @@ async function normalizeResponse(response: FetchInterceptorResponse): Promise<Ht
 
     if (Array.isArray(response) && response.length && response.every(x => typeof x === "string")) {
         const path = resolve(...response);
-        if (existsSync(path)) {
-            const content = await readFile(path, "utf8");
+        if (actualFs.existsSync(path)) {
+            const content = await actualFsPromises.readFile(path, "utf8");
             return HttpResponse.text(content);
         }
     }

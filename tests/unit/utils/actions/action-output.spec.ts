@@ -1,4 +1,4 @@
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import { readFile } from "node:fs/promises";
 import { ActionMetadata } from "@/utils/actions/action-metadata";
 import { ActionParameterPathParser } from "@/utils/actions/action-parameter-path-parser";
@@ -9,13 +9,9 @@ const ENV = Object.freeze({
 });
 
 beforeEach(() => {
-    mockFs({
+    vol.fromJSON({
         "output.txt": "",
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("setActionOutput", () => {

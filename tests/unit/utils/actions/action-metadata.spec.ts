@@ -1,8 +1,8 @@
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import { parseActionMetadataFromFile, parseActionMetadataFromString } from "@/utils/actions/action-metadata";
 
 beforeEach(() => {
-    mockFs({
+    vol.fromJSON({
         "action.yml": `
             name: Test Action
             description: This is a test action
@@ -15,10 +15,6 @@ beforeEach(() => {
                 type: number
         `,
     });
-});
-
-afterEach(() => {
-    mockFs.restore();
 });
 
 describe("parseActionMetadataFromString", () => {

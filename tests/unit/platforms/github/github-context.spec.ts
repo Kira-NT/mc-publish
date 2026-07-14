@@ -1,4 +1,4 @@
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 import { GitHubContext } from "@/platforms/github/github-context";
 
 describe("GitHubContext", () => {
@@ -74,13 +74,9 @@ describe("GitHubContext", () => {
 
     describe("payload", () => {
         beforeAll(() => {
-            mockFs({
+            vol.fromJSON({
                 "payload.json": JSON.stringify({ release: { id: 42 } }),
             });
-        });
-
-        afterAll(() => {
-            mockFs.restore();
         });
 
         test("returns payload when GITHUB_EVENT_PATH is set and file exists", () => {

@@ -1,5 +1,5 @@
 import { FileNotFoundError } from "@/utils/errors/file-not-found-error";
-import mockFs from "mock-fs";
+import { vol } from "memfs";
 
 describe("FileNotFoundError", () => {
     describe("constructor", () => {
@@ -24,11 +24,7 @@ describe("FileNotFoundError", () => {
 
     describe("throwIfNotFound", () => {
         beforeEach(() => {
-            mockFs({ test: "test" });
-        });
-
-        afterEach(() => {
-            mockFs.restore();
+            vol.fromJSON({ test: "test" });
         });
 
         test("throws error if file does not exist", () => {
